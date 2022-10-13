@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { WORDS } from '../public/words';
+import Head from 'next/head';
 
 const randomWord =
     WORDS[Math.floor(Math.random() * WORDS.length)].toLowerCase();
@@ -74,27 +75,32 @@ const Home: NextPage = () => {
     }, [board, col, row, guess]);
 
     return (
-        <div className="board">
-            {board.map((word, i) => (
-                <article className="word" key={i}>
-                    {word.map((letter: string, index: number) => (
-                        <div
-                            className={`letter ${
-                                letter === randomWord[index]
-                                    ? 'correct'
-                                    : randomWord.includes(letter)
-                                    ? 'partial'
-                                    : ''
-                            }`}
-                            key={index}
-                        >
-                            {letter}
-                        </div>
-                    ))}
-                </article>
-            ))}
-            {guess ? <h1>Victory!</h1> : null}
-        </div>
+        <>
+            <Head>
+                <title>Wordle By Sarmun</title>
+            </Head>
+            <div className="board">
+                {board.map((word, i) => (
+                    <article className="word" key={i}>
+                        {word.map((letter: string, index: number) => (
+                            <div
+                                className={`letter ${
+                                    letter === randomWord[index]
+                                        ? 'correct'
+                                        : randomWord.includes(letter)
+                                        ? 'partial'
+                                        : ''
+                                }`}
+                                key={index}
+                            >
+                                {letter}
+                            </div>
+                        ))}
+                    </article>
+                ))}
+                {guess ? <h1>Victory!</h1> : null}
+            </div>
+        </>
     );
 };
 ``;
